@@ -27,6 +27,34 @@
     rgb(232 121 249),
     rgb(129 140 248)
   );
+
+  /* Responsive spacing */
+  --spacing-xs: 0.5rem;   /* 8px */
+  --spacing-sm: 1rem;     /* 16px */
+  --spacing-md: 1.5rem;   /* 24px */
+  --spacing-lg: 2rem;     /* 32px */
+  --spacing-xl: 3rem;     /* 48px */
+  --spacing-2xl: 4rem;    /* 64px */
+  --spacing-3xl: 6rem;    /* 96px */
+
+  /* Responsive font sizes */
+  --text-xs: clamp(0.75rem, 2vw, 0.875rem);
+  --text-sm: clamp(0.875rem, 2.5vw, 1rem);
+  --text-base: clamp(1rem, 3vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 3.5vw, 1.25rem);
+  --text-xl: clamp(1.25rem, 4vw, 1.5rem);
+  --text-2xl: clamp(1.5rem, 5vw, 2rem);
+  --text-3xl: clamp(1.875rem, 6vw, 2.5rem);
+  --text-4xl: clamp(2.25rem, 7vw, 3rem);
+  --text-5xl: clamp(3rem, 8vw, 4rem);
+  --text-6xl: clamp(3.75rem, 10vw, 5rem);
+
+  /* Container widths */
+  --container-sm: 640px;
+  --container-md: 768px;
+  --container-lg: 1024px;
+  --container-xl: 1280px;
+  --container-2xl: 1536px;
 }
 
 /* ===============================
@@ -35,21 +63,109 @@
 @layer base {
   * {
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   html {
     scroll-behavior: smooth;
+    font-size: 16px;
+    overflow-x: hidden;
+  }
+
+  /* Responsive font size scaling */
+  @media (max-width: 768px) {
+    html {
+      font-size: 14px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    html {
+      font-size: 13px;
+    }
   }
 
   body {
-    font-family: 'Inter', system-ui, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
     background: var(--bg-primary);
     color: white;
     overflow-x: hidden;
+    min-height: 100vh;
+    line-height: 1.6;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+
+  /* Responsive images */
+  img,
+  video {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Better focus states for accessibility */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid rgba(167, 139, 250, 0.6);
+    outline-offset: 4px;
+    border-radius: 4px;
+  }
+
+  /* Remove button styles */
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: inherit;
+  }
+}
+
+/* ===============================
+   RESPONSIVE CONTAINER
+================================ */
+@layer components {
+  .container-responsive {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-md);
+    padding-right: var(--spacing-md);
+  }
+
+  @media (min-width: 640px) {
+    .container-responsive {
+      max-width: var(--container-sm);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container-responsive {
+      max-width: var(--container-md);
+      padding-left: var(--spacing-lg);
+      padding-right: var(--spacing-lg);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .container-responsive {
+      max-width: var(--container-lg);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .container-responsive {
+      max-width: var(--container-xl);
+    }
+  }
+
+  @media (min-width: 1536px) {
+    .container-responsive {
+      max-width: var(--container-2xl);
+    }
   }
 }
 
@@ -63,15 +179,24 @@
     background: var(--accent-gradient);
     background-clip: text;
     -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     color: transparent;
   }
 
-  /* Glass Effect */
+  /* Glass Effect - Enhanced for mobile */
   .glass {
     background: var(--bg-glass);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
     border: 1px solid var(--border-glass);
+  }
+
+  /* Reduced blur on mobile for better performance */
+  @media (max-width: 768px) {
+    .glass {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
   }
 
   .glass-hover {
@@ -81,6 +206,14 @@
   .glass-hover:hover {
     background: var(--bg-glass-hover);
     border-color: var(--border-glass-hover);
+  }
+
+  /* Touch-friendly hover (no hover on mobile) */
+  @media (hover: hover) and (pointer: fine) {
+    .glass-hover:hover {
+      background: var(--bg-glass-hover);
+      border-color: var(--border-glass-hover);
+    }
   }
 
   /* Glow Effects */
@@ -94,6 +227,17 @@
       0 0 120px rgba(var(--accent-purple), 0.2);
   }
 
+  /* Reduced glow on mobile for performance */
+  @media (max-width: 768px) {
+    .glow {
+      box-shadow: 0 0 20px rgba(var(--accent-purple), 0.2);
+    }
+
+    .glow-lg {
+      box-shadow: 0 0 30px rgba(var(--accent-purple), 0.3);
+    }
+  }
+
   /* Subtle Noise Overlay */
   .noise {
     position: relative;
@@ -105,24 +249,138 @@
     inset: 0;
     opacity: 0.03;
     pointer-events: none;
-
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
-  /* Grid Background */
+  /* Grid Background - Responsive */
   .grid-pattern {
     background-image:
       linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
   }
+
+  @media (max-width: 768px) {
+    .grid-pattern {
+      background-size: 20px 20px;
+    }
+  }
+
+  /* Responsive Text Sizes */
+  .text-responsive-xs { font-size: var(--text-xs); }
+  .text-responsive-sm { font-size: var(--text-sm); }
+  .text-responsive-base { font-size: var(--text-base); }
+  .text-responsive-lg { font-size: var(--text-lg); }
+  .text-responsive-xl { font-size: var(--text-xl); }
+  .text-responsive-2xl { font-size: var(--text-2xl); }
+  .text-responsive-3xl { font-size: var(--text-3xl); }
+  .text-responsive-4xl { font-size: var(--text-4xl); }
+  .text-responsive-5xl { font-size: var(--text-5xl); }
+  .text-responsive-6xl { font-size: var(--text-6xl); }
+
+  /* Responsive Spacing */
+  .spacing-responsive-xs { gap: var(--spacing-xs); }
+  .spacing-responsive-sm { gap: var(--spacing-sm); }
+  .spacing-responsive-md { gap: var(--spacing-md); }
+  .spacing-responsive-lg { gap: var(--spacing-lg); }
+  .spacing-responsive-xl { gap: var(--spacing-xl); }
+  .spacing-responsive-2xl { gap: var(--spacing-2xl); }
+
+  /* Hide scrollbar utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Touch-friendly tap targets (minimum 44px) */
+  .tap-target {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Prevent text from breaking awkwardly */
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  /* Better line clamping */
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Responsive flex utilities */
+  .flex-mobile-col {
+    display: flex;
+  }
+
+  @media (max-width: 768px) {
+    .flex-mobile-col {
+      flex-direction: column;
+    }
+  }
 }
 
 /* ===============================
-   SCROLLBAR
+   RESPONSIVE NAVIGATION
+================================ */
+@media (max-width: 768px) {
+  nav {
+    padding: 1rem !important;
+  }
+
+  nav .flex {
+    gap: 1rem;
+  }
+
+  nav button,
+  nav a {
+    font-size: 0.875rem;
+  }
+}
+
+/* ===============================
+   RESPONSIVE SECTIONS
+================================ */
+section {
+  padding: clamp(3rem, 8vw, 8rem) 0;
+}
+
+@media (max-width: 768px) {
+  section {
+    padding: clamp(2rem, 6vw, 4rem) 0;
+  }
+}
+
+/* ===============================
+   SCROLLBAR - Enhanced
 ================================ */
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px;
+}
+
+@media (max-width: 768px) {
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
 }
 
 ::-webkit-scrollbar-track {
@@ -139,10 +397,128 @@
   background: rgba(var(--accent-purple), 0.5);
 }
 
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--accent-purple), 0.3) var(--bg-primary);
+}
+
 /* ===============================
    SELECTION
 ================================ */
 ::selection {
   background: rgba(var(--accent-purple), 0.3);
   color: white;
+}
+
+::-moz-selection {
+  background: rgba(var(--accent-purple), 0.3);
+  color: white;
+}
+
+/* ===============================
+   REDUCED MOTION
+================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ===============================
+   LANDSCAPE MOBILE ADJUSTMENTS
+================================ */
+@media (max-height: 600px) and (orientation: landscape) {
+  section {
+    padding: 2rem 0;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2.25rem) !important;
+  }
+}
+
+/* ===============================
+   TABLET SPECIFIC
+================================ */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .container-responsive {
+    padding-left: var(--spacing-lg);
+    padding-right: var(--spacing-lg);
+  }
+}
+
+/* ===============================
+   SMALL MOBILE (< 375px)
+================================ */
+@media (max-width: 374px) {
+  html {
+    font-size: 12px;
+  }
+
+  .container-responsive {
+    padding-left: var(--spacing-sm);
+    padding-right: var(--spacing-sm);
+  }
+}
+
+/* ===============================
+   SAFE AREA (iOS notch support)
+================================ */
+@supports (padding: max(0px)) {
+  body {
+    padding-left: max(0px, env(safe-area-inset-left));
+    padding-right: max(0px, env(safe-area-inset-right));
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+  }
+}
+
+/* ===============================
+   PRINT STYLES
+================================ */
+@media print {
+  body {
+    background: white;
+    color: black;
+  }
+
+  .glass,
+  .glow,
+  .glow-lg,
+  .noise,
+  .grid-pattern {
+    background: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+
+  nav,
+  button {
+    display: none !important;
+  }
+}
+
+/* ===============================
+   HIGH CONTRAST MODE
+================================ */
+@media (prefers-contrast: high) {
+  .glass {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .text-gradient {
+    background: white;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 }

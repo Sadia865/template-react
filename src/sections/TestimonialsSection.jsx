@@ -54,35 +54,37 @@ const TestimonialsSection = () => {
   ];
 
   return (
-    <section id="testimonials" className="relative py-32 overflow-hidden">
+    <section id="testimonials" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-dark-950 via-indigo-950/5 to-dark-950"></div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-4 sm:px-0">
             Loved by <span className="text-gradient">professionals</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4 sm:px-6">
             See what our users have to say about their productivity transformation
           </p>
         </motion.div>
 
-        {/* Scrolling testimonials */}
+        {/* Testimonials Container */}
         <div className="relative">
-          {/* Gradient overlays */}
-          <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none"></div>
-          <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none"></div>
+          {/* Gradient overlays - hidden on mobile */}
+          <div className="hidden md:block absolute left-0 top-0 bottom-0 w-20 lg:w-32 bg-gradient-to-r from-dark-950 to-transparent z-10 pointer-events-none"></div>
+          <div className="hidden md:block absolute right-0 top-0 bottom-0 w-20 lg:w-32 bg-gradient-to-l from-dark-950 to-transparent z-10 pointer-events-none"></div>
 
-          <div className="overflow-x-auto scrollbar-hide">
+          {/* Horizontal scroll on mobile, grid on large screens */}
+          <div className="overflow-x-auto md:overflow-x-scroll lg:overflow-visible scrollbar-hide -mx-4 sm:mx-0">
             <motion.div
-              className="flex gap-6 pb-4"
+              className="flex md:grid md:grid-cols-2 lg:flex gap-4 sm:gap-6 pb-4 px-4 sm:px-0"
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               viewport={{ once: true }}
@@ -91,7 +93,7 @@ const TestimonialsSection = () => {
               {testimonials.map((testimonial, index) => (
                 <motion.div
                   key={index}
-                  className="glass rounded-2xl p-8 min-w-[400px] max-w-[400px] glass-hover"
+                  className="glass rounded-xl sm:rounded-2xl p-6 sm:p-8 min-w-[280px] sm:min-w-[320px] lg:min-w-[380px] max-w-[280px] sm:max-w-[320px] lg:max-w-[380px] glass-hover flex-shrink-0"
                   initial={{ opacity: 0, x: 50 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true, margin: "-100px" }}
@@ -99,32 +101,32 @@ const TestimonialsSection = () => {
                   whileHover={{ y: -8 }}
                 >
                   {/* Quote icon */}
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-violet-500/20 to-indigo-600/20 flex items-center justify-center mb-6">
-                    <Quote className="w-6 h-6 text-violet-400" />
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-violet-500/20 to-indigo-600/20 flex items-center justify-center mb-4 sm:mb-6">
+                    <Quote className="w-5 h-5 sm:w-6 sm:h-6 text-violet-400" />
                   </div>
 
                   {/* Rating */}
-                  <div className="flex gap-1 mb-4">
+                  <div className="flex gap-1 mb-3 sm:mb-4">
                     {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
+                      <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 fill-yellow-400 text-yellow-400" />
                     ))}
                   </div>
 
                   {/* Content */}
-                  <p className="text-gray-300 mb-6 leading-relaxed">
+                  <p className="text-sm sm:text-base text-gray-300 mb-4 sm:mb-6 leading-relaxed">
                     "{testimonial.content}"
                   </p>
 
                   {/* Author */}
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center gap-3 sm:gap-4">
                     <img 
                       src={testimonial.image} 
                       alt={testimonial.name}
-                      className="w-12 h-12 rounded-full object-cover"
+                      className="w-10 h-10 sm:w-12 sm:h-12 rounded-full object-cover"
                     />
                     <div>
-                      <div className="font-semibold text-white">{testimonial.name}</div>
-                      <div className="text-sm text-gray-400">
+                      <div className="font-semibold text-sm sm:text-base text-white">{testimonial.name}</div>
+                      <div className="text-xs sm:text-sm text-gray-400">
                         {testimonial.role} at {testimonial.company}
                       </div>
                     </div>
@@ -132,6 +134,11 @@ const TestimonialsSection = () => {
                 </motion.div>
               ))}
             </motion.div>
+          </div>
+
+          {/* Scroll indicator for mobile */}
+          <div className="md:hidden text-center mt-4">
+            <p className="text-xs text-gray-500">← Swipe to see more →</p>
           </div>
         </div>
       </div>

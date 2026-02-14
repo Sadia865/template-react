@@ -43,40 +43,47 @@ const FeaturesSection = () => {
   ];
 
   return (
-    <section id="features" className="relative py-32 overflow-hidden">
+    <section id="features" className="relative py-16 sm:py-24 md:py-32 overflow-hidden">
       {/* Background elements */}
       <div className="absolute inset-0 grid-pattern opacity-30"></div>
       
-      <div className="relative z-10 max-w-7xl mx-auto px-6">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6">
+        {/* Section Header */}
         <motion.div
-          className="text-center mb-20"
+          className="text-center mb-12 sm:mb-16 md:mb-20"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
         >
+          {/* Badge */}
           <motion.div
-            className="inline-flex items-center gap-2 glass px-4 py-2 rounded-full mb-6"
+            className="inline-flex items-center gap-2 glass px-3 sm:px-4 py-2 rounded-full mb-4 sm:mb-6"
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <Sparkles className="w-4 h-4 text-violet-400" />
-            <span className="text-sm text-gray-300">Features</span>
+            <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 text-violet-400" />
+            <span className="text-xs sm:text-sm text-gray-300">Features</span>
           </motion.div>
           
-          <h2 className="text-5xl md:text-6xl font-bold mb-6">
+          {/* Title - Responsive sizing */}
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 px-4 sm:px-0">
             Everything you need to
-            <br />
+            <br className="hidden sm:block" />
+            <span className="sm:inline block mt-2 sm:mt-0"> </span>
             <span className="text-gradient">work smarter</span>
           </h2>
-          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+          
+          {/* Description */}
+          <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto px-4 sm:px-6">
             Powerful AI features designed to eliminate busywork and help you focus on what truly matters.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* Features Grid - Responsive columns */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
           {features.map((feature, index) => (
             <GlassCard key={index} delay={index * 0.1} hover={true}>
               <motion.div
@@ -84,13 +91,18 @@ const FeaturesSection = () => {
                 whileInView={{ scale: 1, opacity: 1 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="h-full"
               >
-                <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-6 glow`}>
-                  <feature.icon className="w-7 h-7 text-white" />
+                {/* Icon - Responsive size */}
+                <div className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center mb-4 sm:mb-6 glow`}>
+                  <feature.icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
                 </div>
                 
-                <h3 className="text-2xl font-bold mb-3">{feature.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{feature.description}</p>
+                {/* Title - Responsive text */}
+                <h3 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-3">{feature.title}</h3>
+                
+                {/* Description - Responsive text */}
+                <p className="text-sm sm:text-base text-gray-400 leading-relaxed">{feature.description}</p>
               </motion.div>
             </GlassCard>
           ))}
