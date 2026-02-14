@@ -1,0 +1,38 @@
+{
+  "name": "NeuroFlow - AI-Powered Productivity Workspace",
+  "short_name": "NeuroFlow",
+  "description": "Transform your productivity with AI-powered workspace. Automate tasks, prioritize intelligently, and achieve deep work.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#050510",
+  "theme_color": "#A78BFA",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/neuroflow-favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/neuroflow-favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/neuroflow-icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["productivity", "business", "utilities"],
+  "screenshots": []
+}

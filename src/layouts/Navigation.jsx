@@ -26,17 +26,61 @@ const Navigation = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
-        <motion.div 
-          className="flex items-center gap-2"
-          whileHover={{ scale: 1.05 }}
+        <motion.a 
+          href="#"
+          className="flex items-center gap-3"
+          whileHover={{ scale: 1.02 }}
+          transition={{ duration: 0.2 }}
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
-            <svg className="w-6 h-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-            </svg>
-          </div>
-          <span className="text-xl font-bold">NeuroFlow</span>
-        </motion.div>
+          {/* NeuroFlow Icon SVG */}
+          <svg 
+            width="40" 
+            height="40" 
+            viewBox="0 0 200 200" 
+            fill="none" 
+            xmlns="http://www.w3.org/2000/svg"
+            className="flex-shrink-0"
+          >
+            <defs>
+              <linearGradient id="violetGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" style={{stopColor: '#A78BFA', stopOpacity: 1}} />
+                <stop offset="100%" style={{stopColor: '#A78BFA', stopOpacity: 1}} />
+              </linearGradient>
+              <linearGradient id="fuchsiaGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style={{stopColor: '#E879F9', stopOpacity: 1}} />
+                <stop offset="50%" style={{stopColor: '#E879F9', stopOpacity: 1}} />
+                <stop offset="100%" style={{stopColor: '#C084FC', stopOpacity: 1}} />
+              </linearGradient>
+              <linearGradient id="indigoGrad" x1="0%" y1="100%" x2="0%" y2="0%">
+                <stop offset="0%" style={{stopColor: '#818CF8', stopOpacity: 1}} />
+                <stop offset="100%" style={{stopColor: '#818CF8', stopOpacity: 1}} />
+              </linearGradient>
+              <filter id="logoGlow" x="-50%" y="-50%" width="200%" height="200%">
+                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+                <feMerge>
+                  <feMergeNode in="coloredBlur"/>
+                  <feMergeNode in="SourceGraphic"/>
+                </feMerge>
+              </filter>
+            </defs>
+            
+            <g filter="url(#logoGlow)">
+              <line x1="60" y1="25" x2="60" y2="175" stroke="url(#violetGrad)" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="60" y1="25" x2="140" y2="175" stroke="url(#fuchsiaGrad)" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round"/>
+              <line x1="140" y1="25" x2="140" y2="175" stroke="url(#indigoGrad)" strokeWidth="16" strokeLinecap="round" strokeLinejoin="round"/>
+              
+              <circle cx="60" cy="25" r="12" fill="#A78BFA"/>
+              <circle cx="100" cy="100" r="12" fill="#E879F9"/>
+              <circle cx="140" cy="175" r="12" fill="#818CF8"/>
+              <circle cx="140" cy="25" r="12" fill="#818CF8"/>
+              <circle cx="60" cy="175" r="12" fill="#A78BFA"/>
+            </g>
+          </svg>
+          
+          <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">
+            NeuroFlow
+          </span>
+        </motion.a>
 
         {/* Nav Items */}
         <div className="hidden md:flex items-center gap-8">
